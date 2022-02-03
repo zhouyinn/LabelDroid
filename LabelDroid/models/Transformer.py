@@ -330,7 +330,7 @@ class Transformer(nn.Module):
 		att_feats = self.att_embed(att_feats)
 		memory = self.model.encode(att_feats, att_masks)
 		batch_size = att_feats.shape[0]
-		ys = torch.ones(batch_size, 1).fill_(start_symbol).cuda().long()
+		ys = torch.ones(batch_size, 1).fill_(start_symbol).long()
 		for i in range(max_len-1):
 			out = self.model.decode(memory, att_masks, 
 					Variable(ys), 
@@ -374,7 +374,7 @@ class Transformer(nn.Module):
 				ys = ys[beam_indices]
 				memory = memory.index_select(0, Variable(torch.cuda.LongTensor(beam_indices)))
 				att_feats = att_feats.index_select(0, Variable(torch.cuda.LongTensor(beam_indices)))
-				next_word = Variable(torch.from_numpy(wordclass_indices)).cuda()
+				next_word = Variable(torch.from_numpy(wordclass_indices))
 				ys = torch.cat([ys, next_word.unsqueeze(-1)], dim=1)
 			
 		return sentence_ids

@@ -89,7 +89,7 @@ def main(args):
 	if getattr(args, "checkpoint", None) is not None:
 		# check if all necessary files exist 
 		print("[INFO] Loading best model from checkpoint:", os.path.join(args.model_path, 'best_model.ckpt'))
-		checkpoint = torch.load(os.path.join(args.model_path, 'best_model.ckpt'))
+		checkpoint = torch.load(os.path.join(args.model_path, 'best_model.ckpt'), map_location ='cpu')
 		#checkpoint = torch.load(os.path.join(args.model_path, 'model-14-44.ckpt'))
 		decoder.load_state_dict(checkpoint['decoder_state_dict'])
 		encoder.load_state_dict(checkpoint['encoder_state_dict'])

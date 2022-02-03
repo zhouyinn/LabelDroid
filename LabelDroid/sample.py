@@ -108,7 +108,7 @@ def sample(args):
 		# encoder = torch.load("encoder.pt")
 		# decoder = torch.load("decoder.pt")
 
-		checkpoint = torch.load(args.model_path)
+		checkpoint = torch.load(args.model_path, map_location ='cpu')
 
 
 		# labeldroid = LabelDroid(args)
@@ -121,8 +121,8 @@ def sample(args):
 		decoder.load_state_dict(checkpoint['decoder_state_dict'])
 		encoder.load_state_dict(checkpoint['encoder_state_dict'])
 
-		encoder.cuda()
-		decoder.cuda()
+		# encoder.cuda()
+		# decoder.cuda()
 
 		# torch.save(encoder, "encoder.pt")
 		# torch.save(decoder, "decoder.pt")
@@ -168,7 +168,7 @@ def sample(args):
 			outcaps = np.empty((args.batch_size, 0)).tolist()
 
 			for j in range(max_tokens-1):
-				wordclass = Variable(torch.from_numpy(wordclass_feed)).cuda()
+				wordclass = Variable(torch.from_numpy(wordclass_feed))
 
 				wordact, _ = decoder(imgsfeats, imgsfc7, wordclass)
 

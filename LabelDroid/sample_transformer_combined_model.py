@@ -39,7 +39,7 @@ def sample(args):
 	if os.path.exists(args.model_path):
 		print(('[INFO] Loading checkpoint %s' % args.model_path))
 
-		labeldroid = torch.load(args.model_path)
+		labeldroid = torch.load(args.model_path, map_location ='cpu')
 		labeldroid.to(device)
 		labeldroid.eval()
 
